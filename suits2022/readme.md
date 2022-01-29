@@ -1,8 +1,85 @@
 # SUITS RESTful Telemetry Server
-... Docs coming soon.
+
+## Getting Started
+-------------------------------
+
+### Required Software
+1. [NodeJS](https://nodejs.org/en/) (LTS): at the time of writing this is 14.17.6 
+
+### Optional Software 
+1. [Postman](https://www.postman.com/) : Used to test RESTful enpoints.
+
+### Download -or- Clone the Telemetry Server
+``` bash
+$ git clone https://github.com/SUITS-2021/TelemetryServer22.git
+```
+
+### Installing  
+After downloading and decompressing or cloning the project- open a terminal window (Mac/Linux) or a PowerShell window (Windows).
+Change directory to the location of the Telemetry Stream Server.
+*If the "suits22" directory exists, change directory to that directory.
+
+*Tip: The directory should have a file named _"package.json"_.
+ 
+Once in the directory, you will need to install the Node package dependencies. This is because we don't push dependencies to Git for performance reasons. 
+``` bash
+$ npm i
+```
+
+If all is well, you can continue. If you recieve an error: 
+1. Check that your nodejs version is correct. Some packages may not be compatible with different nodejs versions. 
+2. Try purging the node_modules directory then running npm i again.
+``` bash
+$ rm -rf ./node_modules 
+$ npm i
+``` 
+
+### Preparing the database  
+The SUITS Telemetry Server utilizes SQLite and an ORM (Object Relational Mapper) called Sequelize. This trivializes the setup and configuration of our database, while allowing us to generate seed data for the tables. 
+
+To run the setup, use the following command:  
+```bash 
+# change directory to sqlite-example-database 
+$ cd sqlite-example-database/
+# using node, run the setup.js script
+$ node setup.js 
+```
+
+When "Done!" prints to the console, the data has been written to the database. 
+
+### Running the server
+Now that every thing is installed and setup, we can run the server.  
+Make sure you are in the same directory where you ran npm i. This is the one with the package.json file, or on older version telemetryserver22/suits2022/
+``` bash
+# Start the TSS
+$ node index.js 
+```
+
+You should see something like the following: 
+``` bash
+PORT: 8080
+Checking database connection...
+Database connection OK!
+Starting Sequelize + Express example on port 8080...
+Express server started on port 8080. Try some routes, such as '/api/users'.
+```
+
+### Testing and Validating RESTful Endpoints
+Testing the endpoints is a great way to validate that data is flowing from the server to the client and that you have properly defined your URIs to the correct location. 
+There are a number of tools that you can use, suchas cURL (command line) or Postman (GUI). We've included a SUITS.postman_collection.json file in the suits2022/test directory. If you have installed Postman, open the application and go to File > Import. Then drag the SUITS.postman_collection.json onto the drop area under the "File" section. 
+Under "My Workspace" you should see the SUITS folder. Expand it to reveal:
+1. EVASimulation Commands 
+    Enables the EVA simulations 
+2. Data Acquisition 
+    Used to gather simulation state data, rooms, and users.
+3. Startup and Registration
+    Used to register your user and join a room
+4. LSAR 
+    Lunar SAR(Search and Rescue) data functions
 
 
-# Quick API calls
+## Quick API calls
+----------------------------------
 
 ### Get Rooms:
 ``` REST
